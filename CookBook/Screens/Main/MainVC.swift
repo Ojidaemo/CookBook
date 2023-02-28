@@ -12,7 +12,7 @@ class MainVC: UIViewController {
     //MARK: - Private properties
     
     var cellWidth: CGFloat = 0
-    var isSelected = false
+    var isSelected = true
     var lastIndexActive:IndexPath = [1 ,0]
     
     // MARK: - SubViews
@@ -46,11 +46,10 @@ private func setupUICell(cell: UICollectionViewCell, color: UIColor) {
     cell.layer.shadowOffset = CGSize(width: 0, height: 3)
     cell.layer.shadowRadius = 3.0
     cell.layer.shadowOpacity = 0.7
-    cell.layer.masksToBounds = false //<-
+    cell.layer.masksToBounds = false
     cell.layer.cornerRadius = 15
 }
 extension MainVC {
-    /// Adds the `UICollectionView`to the view
     fileprivate func setUpCollectionViewUI() {
         cellWidth = view.frame.width/6
         view.addSubview(collectionView)
@@ -65,18 +64,26 @@ extension MainVC {
 }
 //MARK: - UICollectionViewDelegate
 extension MainVC: UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        print (indexPath)
+        isSelected = false
         if self.lastIndexActive != indexPath {
             let cell = collectionView.cellForItem(at: indexPath) as! CategoryCell
             setupUICell(cell: cell, color: .lightGray)
-            
+
             if let cell1 = collectionView.cellForItem(at: self.lastIndexActive) as? CategoryCell {
                 setupUICell(cell: cell1, color: .white)
             }
             self.lastIndexActive = indexPath
         }
+    }
+     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+         if isSelected && indexPath == [0,0]{
+             setupUICell(cell: cell, color: .lightGray)
+             isSelected = false
+             self.lastIndexActive = [0,0]
+         }
     }
 }
 
