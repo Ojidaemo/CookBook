@@ -28,15 +28,30 @@ class MainVC: UIViewController {
         collectionView.backgroundColor = .white
         return collectionView
     }()
+    
+    private lazy var recipesTableView: UITableView = {
+        let recipesTableView = UITableView()
+        recipesTableView.translatesAutoresizingMaskIntoConstraints = false
+        recipesTableView.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.identifier)
+        recipesTableView.dataSource = self //Отвечает за данные
+        recipesTableView.delegate = self //Отвечает за поведение
+        recipesTableView.register(CustomHeader.self,
+              forHeaderFooterViewReuseIdentifier: "sectionHeader")
+        
+        return recipesTableView
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupView()
-        setUpCollectionViewUI()
+        setupConstrains()
     }
     
     private func setupView() {
         view.addSubview(collectionView)
+        view.addSubview(recipesTableView)
     }
 }
 private func setupUICell(cell: UICollectionViewCell, color: UIColor) {
@@ -50,15 +65,22 @@ private func setupUICell(cell: UICollectionViewCell, color: UIColor) {
     cell.layer.cornerRadius = 15
 }
 extension MainVC {
-    fileprivate func setUpCollectionViewUI() {
+    fileprivate func setupConstrains() {
         cellWidth = view.frame.width/6
-        view.addSubview(collectionView)
         NSLayoutConstraint.activate([
             collectionView.widthAnchor.constraint(equalToConstant: view.frame.width),
             collectionView.heightAnchor.constraint(equalToConstant: cellWidth),
             collectionView.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            recipesTableView.widthAnchor.constraint(equalToConstant: view.frame.width),
+            recipesTableView.heightAnchor.constraint(equalToConstant: view.frame.height - 100),
+            recipesTableView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            recipesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            recipesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+
         ])
     }
 }
@@ -119,6 +141,31 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
         return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20) //отступы от секции
+    }
+}
+
+extension MainVC: UITableViewDelegate, UITableViewDataSource {
+
+     func tableView(_ tableView: UITableView,
+            viewForHeaderInSection section: Int) -> UIView? {
+       let view = tableView.dequeueReusableHeaderFooterView(withIdentifier:
+                   "sectionHeader") as! CustomHeader
+       view.title.text = "Recipes"
+
+       return view
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
 }
 
