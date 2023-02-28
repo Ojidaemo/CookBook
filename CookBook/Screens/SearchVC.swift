@@ -35,4 +35,6 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    
 }
