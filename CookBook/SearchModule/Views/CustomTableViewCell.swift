@@ -26,7 +26,7 @@ final class CustomTableViewCell: UITableViewCell {
     
     private let recipeDescription: UILabel = {
         let label = UILabel()
-        label.text = "efjifinfnf eroeveorn enenio uen ineui neiurenfeofneofn ern fei nrfin eifn iefn ei nernf ejnenen"
+        label.text = "efjifinfnf eroeveorn enenio uen ineui neiurenfeofneofn ern fei nrfin eifn iefn ei nernf ejnnenen"
         label.textAlignment = .justified
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
