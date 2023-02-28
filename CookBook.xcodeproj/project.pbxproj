@@ -72,7 +72,6 @@
 		6D8732FD29ADEDE400AA8FE5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FCF4F77029AD0AA000013F68 /* SearchVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -111,6 +110,7 @@
 				FCA878FE29ADECCE00432704 /* Extensions */,
 				FCF4F76E29AD0A7E00013F68 /* TabBarVC.swift */,
 				FCF4F77229AD0ADE00013F68 /* FavouritesVC.swift */,
+				FCF4F77029AD0AA000013F68 /* SearchVC.swift */,
 				A16C312D29ABCE50009FE88D /* Main */,
 			);
 			path = Screens;
