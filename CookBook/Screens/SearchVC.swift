@@ -34,7 +34,5 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
         
         return cell
-    }
-    
-    
+    }    
 }
