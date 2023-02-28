@@ -13,6 +13,7 @@
 		A1CDC82829AAA67C00A22B8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1CDC82629AAA67C00A22B8C /* Main.storyboard */; };
 		A1CDC82A29AAA67D00A22B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1CDC82929AAA67D00A22B8C /* Assets.xcassets */; };
 		A1CDC82D29AAA67D00A22B8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1CDC82B29AAA67D00A22B8C /* LaunchScreen.storyboard */; };
+		FCA878FD29ADECCA00432704 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA878FC29ADECCA00432704 /* UIColor+Extension.swift */; };
 		FCF4F76F29AD0A7E00013F68 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF4F76E29AD0A7E00013F68 /* TabBarVC.swift */; };
 		FCF4F77129AD0AA000013F68 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF4F77029AD0AA000013F68 /* SearchVC.swift */; };
 		FCF4F77329AD0ADE00013F68 /* FavouritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF4F77229AD0ADE00013F68 /* FavouritesVC.swift */; };
@@ -27,6 +28,7 @@
 		A1CDC82929AAA67D00A22B8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1CDC82C29AAA67D00A22B8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1CDC82E29AAA67D00A22B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCA878FC29ADECCA00432704 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		FCF4F76E29AD0A7E00013F68 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		FCF4F77029AD0AA000013F68 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		FCF4F77229AD0ADE00013F68 /* FavouritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesVC.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		A16C312C29ABCE24009FE88D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				FCA878FE29ADECCE00432704 /* Extensions */,
 				FCF4F76E29AD0A7E00013F68 /* TabBarVC.swift */,
 				FCF4F77229AD0ADE00013F68 /* FavouritesVC.swift */,
 				FCF4F77029AD0AA000013F68 /* SearchVC.swift */,
@@ -114,6 +117,14 @@
 				A16C312B29ABCE1A009FE88D /* Resources */,
 			);
 			path = CookBook;
+			sourceTree = "<group>";
+		};
+		FCA878FE29ADECCE00432704 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FCA878FC29ADECCA00432704 /* UIColor+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +204,7 @@
 				A16C312F29ABCE8E009FE88D /* MainVC.swift in Sources */,
 				FCF4F76F29AD0A7E00013F68 /* TabBarVC.swift in Sources */,
 				A1CDC82329AAA67C00A22B8C /* SceneDelegate.swift in Sources */,
+				FCA878FD29ADECCA00432704 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
