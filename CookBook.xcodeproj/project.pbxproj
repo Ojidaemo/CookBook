@@ -17,6 +17,8 @@
 		A1CDC82829AAA67C00A22B8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1CDC82629AAA67C00A22B8C /* Main.storyboard */; };
 		A1CDC82A29AAA67D00A22B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1CDC82929AAA67D00A22B8C /* Assets.xcassets */; };
 		A1CDC82D29AAA67D00A22B8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1CDC82B29AAA67D00A22B8C /* LaunchScreen.storyboard */; };
+		FC4BAAB629ADF0FE003C82B6 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4BAAB529ADF0FE003C82B6 /* CategoryCell.swift */; };
+		FCA878FD29ADECCA00432704 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA878FC29ADECCA00432704 /* UIColor+Extension.swift */; };
 		FCF4F76F29AD0A7E00013F68 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF4F76E29AD0A7E00013F68 /* TabBarVC.swift */; };
 		FCF4F77129AD0AA000013F68 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF4F77029AD0AA000013F68 /* SearchVC.swift */; };
 		FCF4F77329AD0ADE00013F68 /* FavouritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF4F77229AD0ADE00013F68 /* FavouritesVC.swift */; };
@@ -35,6 +37,8 @@
 		A1CDC82929AAA67D00A22B8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1CDC82C29AAA67D00A22B8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1CDC82E29AAA67D00A22B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC4BAAB529ADF0FE003C82B6 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		FCA878FC29ADECCA00432704 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		FCF4F76E29AD0A7E00013F68 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		FCF4F77029AD0AA000013F68 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		FCF4F77229AD0ADE00013F68 /* FavouritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesVC.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 		A16C312C29ABCE24009FE88D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				FCA878FE29ADECCE00432704 /* Extensions */,
 				FCF4F76E29AD0A7E00013F68 /* TabBarVC.swift */,
 				FCF4F77229AD0ADE00013F68 /* FavouritesVC.swift */,
 				FCF4F77029AD0AA000013F68 /* SearchVC.swift */,
@@ -134,14 +139,29 @@
 		A1CDC81F29AAA67C00A22B8C /* CookBook */ = {
 			isa = PBXGroup;
 			children = (
-				4D0C912529ADE878006F638A /* Model */,
-				4D0C912029ADDE84006F638A /* Manager */,
+				FC4BAAB429ADF0E1003C82B6 /* Cells */,
 				A16C312A29ABCE04009FE88D /* Application */,
 				A16C312C29ABCE24009FE88D /* Screens */,
 				A16C313029ABCF14009FE88D /* Services */,
 				A16C312B29ABCE1A009FE88D /* Resources */,
 			);
 			path = CookBook;
+			sourceTree = "<group>";
+		};
+		FC4BAAB429ADF0E1003C82B6 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FC4BAAB529ADF0FE003C82B6 /* CategoryCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		FCA878FE29ADECCE00432704 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FCA878FC29ADECCA00432704 /* UIColor+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,12 +239,12 @@
 				4D0C912729ADE8C8006F638A /* RecipesModel.swift in Sources */,
 				FCF4F77129AD0AA000013F68 /* SearchVC.swift in Sources */,
 				FCF4F77329AD0ADE00013F68 /* FavouritesVC.swift in Sources */,
-				4D0C912929AE0735006F638A /* RecipesByTypeModel.swift in Sources */,
+				FC4BAAB629ADF0FE003C82B6 /* CategoryCell.swift in Sources */,
 				A16C312F29ABCE8E009FE88D /* MainVC.swift in Sources */,
 				FCF4F76F29AD0A7E00013F68 /* TabBarVC.swift in Sources */,
 				4D0C912429ADE7A2006F638A /* RecipesManager.swift in Sources */,
 				A1CDC82329AAA67C00A22B8C /* SceneDelegate.swift in Sources */,
-				4D0C912229ADDE95006F638A /* APIManager.swift in Sources */,
+				FCA878FD29ADECCA00432704 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +391,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XZM6LJA6AB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookBook/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -402,6 +423,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XZM6LJA6AB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookBook/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
