@@ -8,7 +8,6 @@ final class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //title = "Search"
         view.backgroundColor = .secondarySystemBackground
         searchView.tableView.delegate = self
         searchView.tableView.dataSource = self
@@ -36,6 +35,4 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
