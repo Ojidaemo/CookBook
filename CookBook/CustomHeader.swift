@@ -20,7 +20,7 @@ class CustomHeader: UITableViewHeaderFooterView {
     func configureContents() {
         title.translatesAutoresizingMaskIntoConstraints = false
         title.textColor = .black
-        title.font = .boldSystemFont(ofSize: 40)
+        title.font = .boldSystemFont(ofSize: 30)
         contentView.addSubview(title)
         NSLayoutConstraint.activate([
             title.heightAnchor.constraint(equalToConstant: 30),
