@@ -100,7 +100,7 @@ class ContentView: UIView {
         return label
     }()
     
-    //TODO: Ingredients
+    //TODO: Add Ingredients
     
     private let cookingMethodLabel: UILabel = {
         let label = UILabel()
@@ -137,7 +137,8 @@ class ContentView: UIView {
         addSubview(dishImageView)
         addSubview(titleLabel)
         
-        timeStackView = UIStackView(arrangedSubviews: [timeImageView, timeLabel])
+        timeStackView = UIStackView(arrangedSubviews: [timeImageView,
+                                                       timeLabel])
         timeStackView.axis = .horizontal
         timeStackView.spacing = 5
         timeStackView.translatesAutoresizingMaskIntoConstraints = false
