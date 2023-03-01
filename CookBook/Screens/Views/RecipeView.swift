@@ -10,7 +10,6 @@ import UIKit
 final class RecipeView: UIView {
     
     var categories = ["all", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "marinade", "fingerfood", "snack", "drink"]
-    var cellWidth: CGFloat = 0
     var isSelected = true
     var lastIndexActive:IndexPath = [1 ,0]
     
@@ -49,19 +48,15 @@ final class RecipeView: UIView {
     }
     
     private func setupConstrains() {
-        cellWidth = self.frame.width/6
-        print(cellWidth)
         NSLayoutConstraint.activate([
-            collectionView.widthAnchor.constraint(equalToConstant: 430),
-            collectionView.heightAnchor.constraint(equalToConstant: 72),
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.centerYAnchor.constraint(equalTo: topAnchor, constant: 50),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         NSLayoutConstraint.activate([
-            recipesTableView.widthAnchor.constraint(equalToConstant: 430),
+            recipesTableView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
             recipesTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -27),
-            recipesTableView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 10),
             recipesTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             recipesTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
             

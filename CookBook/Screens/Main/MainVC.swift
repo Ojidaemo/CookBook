@@ -99,12 +99,9 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
 
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView,
-                   viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier:
-                                                                "sectionHeader") as! CustomHeader
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader") as! CustomHeader
         view.title.text = "Recipes"
-        
         return view
     }
     
