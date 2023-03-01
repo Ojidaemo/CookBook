@@ -30,16 +30,6 @@ class FavouritesVC: UIViewController {
             favoriteView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
-    private func setupUICell(cell: UICollectionViewCell, color: UIColor) {
-        cell.backgroundColor = color
-        cell.layer.borderWidth = 0.0
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOffset = CGSize(width: 0, height: 3)
-        cell.layer.shadowRadius = 3.0
-        cell.layer.shadowOpacity = 0.5
-        cell.layer.masksToBounds = false
-        cell.layer.cornerRadius = 15
-    }
 }
 
 extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
@@ -56,6 +46,8 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
+        cell.isChecked = false
+        cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
         return cell
     }
     

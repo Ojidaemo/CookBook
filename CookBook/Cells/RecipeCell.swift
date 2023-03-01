@@ -32,7 +32,7 @@ class RecipeCell: UITableViewCell {
         return image
     }()
     
-    private let favouriteButton: UIButton = {
+     lazy var favouriteButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .red
