@@ -10,10 +10,9 @@ import UIKit
 class MainVC: UIViewController {
     
     private let recipeView = RecipeView()
-    
+    var selectedCategory = "all"
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(view.frame.width)
         view.backgroundColor = .secondarySystemBackground
         recipeView.collectionView.dataSource = self
         recipeView.collectionView.delegate = self
@@ -32,6 +31,7 @@ class MainVC: UIViewController {
             recipeView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
+    
     private func setupUICell(cell: UICollectionViewCell, color: UIColor) {
         cell.backgroundColor = color
         cell.layer.borderWidth = 0.0
@@ -48,11 +48,13 @@ class MainVC: UIViewController {
 extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print (indexPath)
         recipeView.isSelected = false
         if recipeView.lastIndexActive != indexPath {
+            
             let cell = collectionView.cellForItem(at: indexPath) as! CategoryCell
             setupUICell(cell: cell, color: .lightGray)
+            selectedCategory = recipeView.categories[indexPath.row]
+            print(selectedCategory)
             
             if let cell1 = collectionView.cellForItem(at: recipeView.lastIndexActive) as? CategoryCell {
                 setupUICell(cell: cell1, color: .white)
@@ -60,6 +62,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             recipeView.lastIndexActive = indexPath
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if recipeView.isSelected && indexPath == [0,0]{
             setupUICell(cell: cell, color: .lightGray)
@@ -111,6 +114,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
+        
         return cell
     }
     
