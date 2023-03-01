@@ -24,8 +24,8 @@ final class SearchView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-
-        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
+        tableView.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.identifier)
+        tableView.register(CustomHeader.self, forHeaderFooterViewReuseIdentifier: "sectionHeader")
         addSubviews(searchBar, tableView)
         addConstraints()
     }

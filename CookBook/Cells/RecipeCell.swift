@@ -29,24 +29,8 @@ class RecipeCell: UITableViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 15
         image.clipsToBounds = true
-        //        image.layer.shadowRadius = 10
-        //        image.layer.shadowOpacity = 0.7
-        //        image.layer.shadowOffset = CGSize(width: 3, height: 3)
-        //        image.layer.shadowColor = UIColor.black.cgColor
-        //        image.layer.masksToBounds = false
         return image
     }()
-    //
-    //    private let shadowView: UIView = {
-    //        let view = UIView()
-    //        view.backgroundColor = .none
-    //        view.layer.shadowRadius = 10
-    //        view.layer.shadowOpacity = 0.7
-    //        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-    //        view.layer.shadowColor = UIColor.black.cgColor
-    //        view.layer.masksToBounds = false
-    //        return view
-    //    }()
     
     private let favouriteButton: UIButton = {
         let button = UIButton()
@@ -66,8 +50,6 @@ class RecipeCell: UITableViewCell {
             favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
             isChecked = true
         }
-        
-        print("pressed")
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -84,11 +66,10 @@ class RecipeCell: UITableViewCell {
         contentView.addSubview(recipeImage)
         contentView.addSubview(favouriteButton)
         contentView.addSubview(recipeName)
-        //        contentView.addSubview(shadowView)
     }
     
+    
     private func setupConstraints() {
-        
         
         NSLayoutConstraint.activate([
             
@@ -96,11 +77,6 @@ class RecipeCell: UITableViewCell {
             recipeImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 10),
             recipeImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             recipeImage.widthAnchor.constraint(equalToConstant: self.frame.width / 2 + 10),
-            
-            //            shadowView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            //            shadowView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 10),
-            //            shadowView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            //            shadowView.widthAnchor.constraint(equalToConstant: self.frame.width / 2 + 10),
             
             recipeName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             recipeName.leadingAnchor.constraint(equalTo: recipeImage.trailingAnchor),

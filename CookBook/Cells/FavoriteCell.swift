@@ -7,10 +7,11 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
-    
-    let recipeName: UILabel = {
-       let label = UILabel()
+class FavoriteCell: UITableViewCell {
+    static let identifier = "FavoriteCell"
+    var isChecked = true
+    private let recipeName: UILabel = {
+        let label = UILabel()
         label.text = "Grilled Fish With Sun Dried Tomato Relish"
         label.textColor = .black
         label.font = .systemFont(ofSize: 20)
@@ -21,18 +22,18 @@ class TableViewCell: UITableViewCell {
         return label
     }()
     
-    let recipeImage: UIImageView = {
+    private let recipeImage: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFill
         image.image = UIImage(named: "tableImage")
-        image.layer.cornerRadius = 10
-        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.cornerRadius = 15
+        image.clipsToBounds = true
         return image
     }()
     
-    let favouriteButton: UIButton = {
-       let button = UIButton()
+    private let favouriteButton: UIButton = {
+        let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .red
         button.addTarget(self, action: #selector(favouriteButtonPressed), for: .touchUpInside)
@@ -41,38 +42,43 @@ class TableViewCell: UITableViewCell {
     }()
     
     @objc func favouriteButtonPressed() {
-        if favouriteButton.currentBackgroundImage == UIImage(systemName: "heart") {
+        
+        if isChecked {
             favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            isChecked = false
         } else {
             favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            isChecked = true
         }
-        print("pressed")
     }
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setConstraints()
+        backgroundColor = .systemBackground
+        setupViews()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func setConstraints() {
-        
-        self.addSubview(recipeImage)
-        self.addSubview(recipeName)
+    private func setupViews() {
+        contentView.addSubview(recipeImage)
         contentView.addSubview(favouriteButton)
-        
+        contentView.addSubview(recipeName)
+    }
+    
+    
+    private func setupConstraints() {
         
         NSLayoutConstraint.activate([
             
-            recipeImage.topAnchor.constraint(equalTo: self.topAnchor),
+            recipeImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             recipeImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 10),
-            recipeImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            recipeImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             recipeImage.widthAnchor.constraint(equalToConstant: self.frame.width / 2 + 10),
             
-            recipeName.topAnchor.constraint(equalTo: self.topAnchor),
+            recipeName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             recipeName.leadingAnchor.constraint(equalTo: recipeImage.trailingAnchor),
             recipeName.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -10),
             
@@ -83,5 +89,5 @@ class TableViewCell: UITableViewCell {
             
         ])
     }
-
 }
+
