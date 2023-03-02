@@ -12,6 +12,7 @@ class MainVC: UIViewController {
     private let recipeView = RecipeView()
     private let resipesByTypeDelegate: RestAPIProviderProtocol = RecipesManager() // создал делегат для вызвова запроса
     var selectedCategory = "all"
+    var typesRicepsArray: [Result] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .secondarySystemBackground
@@ -49,21 +50,25 @@ class MainVC: UIViewController {
 extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        typesRicepsArray.removeAll() //очищаем массив от всех предыдущих значений
         recipeView.isSelected = false
         if recipeView.lastIndexActive != indexPath {
             
             let cell = collectionView.cellForItem(at: indexPath) as! CategoryCell
             setupUICell(cell: cell, color: .lightGray)
             selectedCategory = recipeView.categories[indexPath.row]
-//            resipesByTypeDelegate.getRecipesByType(forType: selectedCategory) { [weak self] recipesData in //передал ключ в запрос
-//                guard let self = self else { return }
-////                if self.selectedCategory == "all" {
-////                    print("ALLLLLLLLLL") //это чтобы не забыть про all
-////                }
-//                if let recivedData = recipesData.results { //Далее уже с recivedData делаем всё, что нам надо. Сохраняем в массив, заполняем таблицу и пр. Но пока с all не рботает, в процессе ещё.
-//                    print(recivedData)
-//                }
-//            }
+            resipesByTypeDelegate.getRecipesByType(forType: selectedCategory) { [weak self] recipesData in //передал ключ в запрос
+                guard let self = self else { return }
+                //                if self.selectedCategory == "all" {
+                //                    print("ALLLLLLLLLL") //это чтобы не забыть про all
+                //                }
+                if let recivedData = recipesData.results {
+                    self.typesRicepsArray.append(contentsOf: recivedData) //доб значения в массив
+                    DispatchQueue.main.async {
+                        self.recipeView.recipesTableView.reloadData() //обновили таблицу
+                    }
+                }
+            }
             print(selectedCategory)
             
             if let cell1 = collectionView.cellForItem(at: recipeView.lastIndexActive) as? CategoryCell {
@@ -119,7 +124,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return typesRicepsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
