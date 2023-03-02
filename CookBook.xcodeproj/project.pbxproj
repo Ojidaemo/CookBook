@@ -24,6 +24,8 @@
 		A1CDC82D29AAA67D00A22B8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1CDC82B29AAA67D00A22B8C /* LaunchScreen.storyboard */; };
 		FC0F9FFA29AF2A56005E59DF /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0F9FF929AF2A56005E59DF /* FavouritesView.swift */; };
 		FC4BAAB629ADF0FE003C82B6 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4BAAB529ADF0FE003C82B6 /* CategoryCell.swift */; };
+		FCA47CF729B0B6C200E7C54D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = FCA47CF629B0B6C200E7C54D /* SDWebImage */; };
+		FCA47CF929B0B6C200E7C54D /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FCA47CF829B0B6C200E7C54D /* SDWebImageMapKit */; };
 		FCA878FD29ADECCA00432704 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA878FC29ADECCA00432704 /* UIColor+Extension.swift */; };
 		FCC980BC29AE3E9200B0EAAD /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC980BB29AE3E9200B0EAAD /* RecipeView.swift */; };
 		FCF4F76F29AD0A7E00013F68 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF4F76E29AD0A7E00013F68 /* TabBarVC.swift */; };
@@ -67,6 +69,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCA47CF929B0B6C200E7C54D /* SDWebImageMapKit in Frameworks */,
+				FCA47CF729B0B6C200E7C54D /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +253,10 @@
 			dependencies = (
 			);
 			name = CookBook;
+			packageProductDependencies = (
+				FCA47CF629B0B6C200E7C54D /* SDWebImage */,
+				FCA47CF829B0B6C200E7C54D /* SDWebImageMapKit */,
+			);
 			productName = CookBook;
 			productReference = A1CDC81D29AAA67C00A22B8C /* CookBook.app */;
 			productType = "com.apple.product-type.application";
@@ -277,6 +285,9 @@
 				Base,
 			);
 			mainGroup = A1CDC81429AAA67C00A22B8C;
+			packageReferences = (
+				FCA47CF529B0B6C200E7C54D /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = A1CDC81E29AAA67C00A22B8C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -550,6 +561,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FCA47CF529B0B6C200E7C54D /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FCA47CF629B0B6C200E7C54D /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCA47CF529B0B6C200E7C54D /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		FCA47CF829B0B6C200E7C54D /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCA47CF529B0B6C200E7C54D /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A1CDC81529AAA67C00A22B8C /* Project object */;
 }

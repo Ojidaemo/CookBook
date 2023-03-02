@@ -44,4 +44,15 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
+//        let bgColorView = UIView()
+//        bgColorView.backgroundColor = .white
+//        bgColorView.layer.cornerRadius = 15
+//        cell.selectedBackgroundView = bgColorView
+        let vc = DetailedRecipeViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
 }
