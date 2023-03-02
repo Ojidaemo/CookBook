@@ -10,6 +10,7 @@ import UIKit
 class MainVC: UIViewController {
     
     private let recipeView = RecipeView()
+    private let resipesByTypeDelegate: RestAPIProviderProtocol = RecipesManager() // создал делегат для вызвова запроса
     var selectedCategory = "all"
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,15 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             let cell = collectionView.cellForItem(at: indexPath) as! CategoryCell
             setupUICell(cell: cell, color: .lightGray)
             selectedCategory = recipeView.categories[indexPath.row]
+            resipesByTypeDelegate.getRecipesByType(forType: selectedCategory) { [weak self] recipesData in //передал ключ в запрос
+                guard let self = self else { return }
+//                if self.selectedCategory == "all" {
+//                    print("ALLLLLLLLLL") //это чтобы не забыть про all
+//                }
+                if let recivedData = recipesData.results { //Далее уже с recivedData делаем всё, что нам надо. Сохраняем в массив, заполняем таблицу и пр. Но пока с all не рботает, в процессе ещё.
+                    print(recivedData)
+                }
+            }
             print(selectedCategory)
             
             if let cell1 = collectionView.cellForItem(at: recipeView.lastIndexActive) as? CategoryCell {
