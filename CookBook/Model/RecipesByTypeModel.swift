@@ -7,22 +7,14 @@
 
 import Foundation
 
-struct RecipesByTypeModel: Codable {
+struct RecipesByTypeModel: Decodable {
     let results: [Result]?
-    let offset, number, totalResults: Int?
+    let offset, number, totalResults: Int
 }
 
-struct Result: Codable {
-    let id: Int?
-    let title: String?
-    let image: String?
-    let imageType: ImageType?
-}
-
-enum ImageType: String, Codable {
-    case jpg = "jpg"
-}
-
-struct RecipesModel: Codable {
-    let recipes: [Recipe]?
+struct Result: Decodable {
+    let id: Int
+    let title: String
+    let image: String
+    let imageType: String
 }

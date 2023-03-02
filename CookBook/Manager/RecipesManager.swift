@@ -14,7 +14,7 @@ protocol RestAPIProviderProtocol {
 
 class RecipesManager: RestAPIProviderProtocol {
    
-    var spoonacularAPIKey: String {
+    private var spoonacularAPIKey: String {
         guard let key = Bundle.main.object(forInfoDictionaryKey: "spoonacularAPIKey") as? String else { return ""}
         return key
     }
