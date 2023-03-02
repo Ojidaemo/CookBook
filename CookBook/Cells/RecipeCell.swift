@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import SDWebImage
 
 class RecipeCell: UITableViewCell {
     static let identifier = "RecipeCell"
     var isChecked = true
-    private let recipeName: UILabel = {
+    private var recipeName: UILabel = {
         let label = UILabel()
         label.text = "Grilled Fish With Sun Dried Tomato Relish"
         label.textColor = .black
@@ -22,7 +23,7 @@ class RecipeCell: UITableViewCell {
         return label
     }()
     
-    private let recipeImage: UIImageView = {
+    private var recipeImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "tableImage")
         image.contentMode = .scaleAspectFill
@@ -68,7 +69,12 @@ class RecipeCell: UITableViewCell {
         contentView.addSubview(recipeName)
     }
     
-    
+   public func configure(_ recipe: Result) {
+     
+       self.recipeImage.sd_setImage(with: URL(string: recipe.image))
+       self.recipeName.text = recipe.title
+        layoutSubviews()
+    }
     private func setupConstraints() {
         
         NSLayoutConstraint.activate([

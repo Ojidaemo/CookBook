@@ -12,7 +12,6 @@ final class RecipeView: UIView {
     var categories = ["all", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "marinade", "fingerfood", "snack", "drink"]
     var isSelected = true
     var lastIndexActive:IndexPath = [1 ,0]
-    
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal

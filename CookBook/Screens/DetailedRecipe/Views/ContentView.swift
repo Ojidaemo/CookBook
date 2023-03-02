@@ -14,6 +14,7 @@ class ContentView: UIView {
         imageView.clipsToBounds = true
         imageView.image = UIImage(named: "tableImage")
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 15
         return imageView
     }()
 
@@ -47,6 +48,7 @@ class ContentView: UIView {
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         view.widthAnchor.constraint(equalToConstant: 90).isActive = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 15
         return view
     }()
     
@@ -63,6 +65,7 @@ class ContentView: UIView {
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         view.widthAnchor.constraint(equalToConstant: 90).isActive = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 15
         return view
     }()
     
@@ -79,6 +82,7 @@ class ContentView: UIView {
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         view.widthAnchor.constraint(equalToConstant: 90).isActive = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 15
         return view
     }()
     
@@ -167,8 +171,8 @@ extension ContentView {
         NSLayoutConstraint.activate([
             dishImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             dishImageView.topAnchor.constraint(equalTo: topAnchor),
-            dishImageView.widthAnchor.constraint(equalTo: widthAnchor),
-            dishImageView.heightAnchor.constraint(equalToConstant: 500),
+            dishImageView.widthAnchor.constraint(equalTo: widthAnchor, constant: -100),
+            dishImageView.heightAnchor.constraint(equalToConstant: 400),
             
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: dishImageView.bottomAnchor, constant: 25),
