@@ -105,6 +105,13 @@ class ContentView: UIView {
     }()
     
     //TODO: Add Ingredients
+    let ingredientsInfoLabel: UILabel = {
+        let label = UILabel()
+        label.text = " • gergger\n • ergergverrv\n • werf wef3\n • erf3frv3rv\n • edfcv3v "
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     private let cookingMethodLabel: UILabel = {
         let label = UILabel()
@@ -161,6 +168,7 @@ class ContentView: UIView {
         fatsView.addSubview(fatsLabel)
         
         addSubview(mainIngredientsLabel)
+        addSubview(ingredientsInfoLabel)
         addSubview(cookingMethodLabel)
         addSubview(cookingMethodTextLabel)
     }
@@ -195,7 +203,10 @@ extension ContentView {
             mainIngredientsLabel.topAnchor.constraint(equalTo: macronutrientsStackView.bottomAnchor, constant: 20),
             mainIngredientsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
             
-            cookingMethodLabel.topAnchor.constraint(equalTo: mainIngredientsLabel.bottomAnchor, constant: 300),
+            ingredientsInfoLabel.topAnchor.constraint(equalTo: mainIngredientsLabel.bottomAnchor, constant: 20),
+            ingredientsInfoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
+            
+            cookingMethodLabel.topAnchor.constraint(equalTo: ingredientsInfoLabel.bottomAnchor, constant: 50),
             cookingMethodLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
             
             cookingMethodTextLabel.topAnchor.constraint(equalTo: cookingMethodLabel.bottomAnchor, constant: 20),
