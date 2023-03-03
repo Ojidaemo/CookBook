@@ -6,3 +6,19 @@
 //
 
 import Foundation
+
+class PreloadData {
+    
+    private let getRandomRecipesListDelegate: RestAPIProviderProtocol = RecipesManager()
+    var randomRecipesArray: [RecipesModel] = []
+    
+    
+    func configure() {
+        getRandomRecipesListDelegate.getRandomRecipes { [weak self] recipesData in
+            
+            guard let self = self else { return }
+            self.randomRecipesArray.append(recipesData)
+//            print("первоначально приходит в массив: \(self.randomRecipesArray.count)")
+        }
+    }
+}

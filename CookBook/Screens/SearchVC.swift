@@ -4,10 +4,16 @@ import UIKit
 final class SearchVC: UIViewController {
     
     private let searchView = SearchView()
-
+    private let preloadManagerDelegate = PreloadData()
+    
+    override func viewDidAppear(_ animated: Bool) {  //тут после загрузки view получил данные и обновил таблицу
+        preloadManagerDelegate.configure()
+        searchView.tableView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        preloadManagerDelegate.configure() //не определился в каком месте лучше получать данные и обновлять таблицу, поэтому ещё и сюда пихнул. В идеале в одном месте где-то это делать.
+        searchView.tableView.reloadData()
         view.backgroundColor = .secondarySystemBackground
         searchView.tableView.delegate = self
         searchView.tableView.dataSource = self
@@ -27,7 +33,8 @@ final class SearchVC: UIViewController {
 
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return preloadManagerDelegate.randomRecipesArray.first?.recipes?.count ?? 1   //проверял получение кол-ва ячеек по кол-ву объектов из массива
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -38,7 +45,6 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
-        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

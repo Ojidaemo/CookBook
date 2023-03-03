@@ -22,7 +22,7 @@ extension Endpoint {
     var url: URL {
         switch self {
         case .getRandomRecipes(let key):
-            if let url = URL(string: spoonacularURL.appending("/random?apiKey=\(key)")) {
+            if let url = URL(string: spoonacularURL.appending("/random?apiKey=\(key)&number=30")) {
                 return url
             }
             fatalError()
