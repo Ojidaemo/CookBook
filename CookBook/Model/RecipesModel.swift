@@ -32,7 +32,7 @@ struct Recipe: Decodable {
     let instructions: String
     let analyzedInstructions: [AnalyzedInstruction]
     let spoonacularSourceURL: String
-    
+
     enum CodingKeys: String, CodingKey {
         case vegetarian, vegan, glutenFree, dairyFree, veryHealthy, cheap, veryPopular, sustainable, lowFodmap, weightWatcherSmartPoints, gaps, preparationMinutes, cookingMinutes, aggregateLikes, healthScore, creditsText, sourceName, pricePerServing, extendedIngredients, id, title, readyInMinutes, servings
         case sourceURL = "sourceUrl"
@@ -40,9 +40,9 @@ struct Recipe: Decodable {
         case originalID = "originalId"
         case spoonacularSourceURL = "spoonacularSourceUrl"
     }
-    
+
     init(from decoder: Decoder) throws {
-        
+
         let values = try decoder.container(keyedBy: CodingKeys.self)
         vegetarian = try values.decode(Bool.self, forKey: .vegetarian); vegan = try values.decode(Bool.self, forKey: .vegan)
         glutenFree = try values.decode(Bool.self, forKey: .glutenFree); dairyFree = try values.decode(Bool.self, forKey: .dairyFree)
@@ -61,7 +61,7 @@ struct Recipe: Decodable {
         analyzedInstructions = try values.decode([AnalyzedInstruction].self, forKey: .analyzedInstructions); spoonacularSourceURL = try values.decode(String.self, forKey: .spoonacularSourceURL)
         sourceName = try values.decode(String.self, forKey: .sourceName); summary = try values.decode(String.self, forKey: .summary)
         dishTypes = try values.decode([String].self, forKey: .dishTypes)
-        
+
     }
 }
 
