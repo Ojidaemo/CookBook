@@ -10,6 +10,7 @@ import Foundation
 protocol RestAPIProviderProtocol {
     func getRandomRecipes(completionHandler: @escaping ( RecipesModel ) -> Void)
     func getRecipesByType(forType type: String, complitionHandler: @escaping(RecipesByTypeModel) -> Void)
+    func getCurrentRecipesByID(forID ID: Int, completionHandler: @escaping ( RecipesModel ) -> Void)
 }
 
 class RecipesManager: RestAPIProviderProtocol {
@@ -55,6 +56,28 @@ class RecipesManager: RestAPIProviderProtocol {
                 do {
                     let recipesByType = try decoder.decode(RecipesByTypeModel.self, from: data)
                     complitionHandler(recipesByType)
+                } catch let error {
+                    print(error)
+                }
+            }
+        }
+        dataTask.resume()
+    }
+    
+    func getCurrentRecipesByID(forID ID: Int, completionHandler: @escaping ( RecipesModel ) -> Void) {
+        let endpoint = Endpoint.getCurrentRecipe(key: spoonacularAPIKey, ID: ID)
+        var urlRequest = URLRequest(url: endpoint.url)
+        urlRequest.httpMethod = "GET"
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: urlRequest) { data, response, error in
+            if let error = error {
+                print(error)
+            }
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    let randomRecipes = try decoder.decode(RecipesModel.self, from: data)
+                    completionHandler(randomRecipes)
                 } catch let error {
                     print(error)
                 }

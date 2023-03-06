@@ -75,6 +75,12 @@ class RecipeCell: UITableViewCell {
        self.recipeName.text = recipe.title
         layoutSubviews()
     }
+    public func configure(_ recipe: Recipe) {
+      
+        self.recipeImage.sd_setImage(with: URL(string: recipe.image))
+        self.recipeName.text = recipe.title
+         layoutSubviews()
+     }
     private func setupConstraints() {
         
         NSLayoutConstraint.activate([

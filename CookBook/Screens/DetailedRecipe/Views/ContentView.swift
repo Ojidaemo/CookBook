@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ContentView: UIView {
     
@@ -140,6 +141,21 @@ class ContentView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    public func configure(_ recipe: Result) {
+//
+//        self.dishImageView.sd_setImage(with: URL(string: recipe.image))
+//        self.titleLabel.text = recipe.title
+//        self.ingredientsInfoLabel.text = recipe.
+//         layoutSubviews()
+//     }
+    
+    public func configure(_ recipe: Recipe) {
+      
+        self.dishImageView.sd_setImage(with: URL(string: recipe.image))
+        self.titleLabel.text = recipe.title
+         layoutSubviews()
+     }
     
     private func setupView() {
         backgroundColor = .secondarySystemBackground
