@@ -20,6 +20,13 @@ class FavouritesVC: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.favoriteView.recipesTableView.reloadData()
+        }
+        print("!!!!!!!! Показываем избранное в который раз !!!!!!!!!!")
+    }
+    
     
     private func setupView() {
         view.addSubview(favoriteView)
@@ -41,13 +48,24 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return PreloadData.favoriteRecips.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
-        cell.isChecked = false
-        cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        cell.liked = true
+//        cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        
+        let recipe = PreloadData.favoriteRecips[indexPath.row]
+        if PreloadData.favoriteRecips.contains(recipe) {
+            //cell.liked = true
+            cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            //cell.liked = false
+            cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+        }
+        cell.configure(recipe)
+        
         return cell
     }
     

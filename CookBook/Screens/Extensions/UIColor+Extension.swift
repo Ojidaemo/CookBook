@@ -5,7 +5,6 @@
 //  Created by Лерочка on 28.02.2023.
 //
 
-
 import UIKit
 
 extension UIColor {
@@ -19,4 +18,3 @@ extension UIColor {
         #colorLiteral(red: 0.4375901222, green: 0.4375901222, blue: 0.4375901222, alpha: 1)
     }
 }
-
