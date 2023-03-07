@@ -51,7 +51,9 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
         if let recipe = preloadManagerDelegate.randomRecipesArray.first?.recipes?[indexPath.row] {
-            cell.configure(recipe)
+            DispatchQueue.main.async {
+                cell.configure(recipe)
+            }
         }
         return cell
     }
