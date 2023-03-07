@@ -12,7 +12,7 @@ class MainVC: UIViewController {
     private let preloadManagerDelegate = PreloadData()
     private let searchView = SearchView()
     private let recipeView = RecipeView()
-    private let resipesByTypeDelegate: RestAPIProviderProtocol = RecipesManager() // создал делегат для вызвова запроса
+    private let resipesByTypeDelegate: RestAPIProviderProtocol = RecipesManager()
     var selectedCategory = "all"
     var typesRicepsArray: [Result] = []
     var currentRicepsArray: [Recipe] = []

@@ -11,6 +11,7 @@ protocol RestAPIProviderProtocol {
     func getRandomRecipes(completionHandler: @escaping ( RecipesModel ) -> Void)
     func getRecipesByType(forType type: String, complitionHandler: @escaping(RecipesByTypeModel) -> Void)
     func getCurrentRecipesByID(forID ID: Int, completionHandler: @escaping ( Recipe ) -> Void)
+    func getRecipesByKey(forKey keyWord: String, completionHandler: @escaping ( RecipesByTypeModel ) -> Void)
 }
 
 class RecipesManager: RestAPIProviderProtocol {
@@ -86,5 +87,26 @@ class RecipesManager: RestAPIProviderProtocol {
         dataTask.resume()
     }
     
+    func getRecipesByKey(forKey keyWord: String, completionHandler: @escaping ( RecipesByTypeModel ) -> Void) {
+        let endpoint = Endpoint.getRecipeByKey(key: spoonacularAPIKey, keyWord: keyWord)
+        var urlRequest = URLRequest(url: endpoint.url)
+        urlRequest.httpMethod = "GET"
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: urlRequest) { data, response, error in
+            if let error = error {
+                print(error)
+            }
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    let recipesByKey = try decoder.decode(RecipesByTypeModel.self, from: data)
+                    completionHandler(recipesByKey)
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        dataTask.resume()
+    }
     
 }
