@@ -10,7 +10,7 @@ import Foundation
 protocol RestAPIProviderProtocol {
     func getRandomRecipes(completionHandler: @escaping ( RecipesModel ) -> Void)
     func getRecipesByType(forType type: String, complitionHandler: @escaping(RecipesByTypeModel) -> Void)
-    func getCurrentRecipesByID(forID ID: Int, completionHandler: @escaping ( RecipesModel ) -> Void)
+    func getCurrentRecipesByID(forID ID: Int, completionHandler: @escaping ( Recipe ) -> Void)
 }
 
 class RecipesManager: RestAPIProviderProtocol {
@@ -35,7 +35,7 @@ class RecipesManager: RestAPIProviderProtocol {
                     let randomRecipes = try decoder.decode(RecipesModel.self, from: data)
                     completionHandler(randomRecipes)
                 } catch let error {
-                    print(error)
+                    print(error.localizedDescription)
                 }
             }
         }
@@ -57,14 +57,14 @@ class RecipesManager: RestAPIProviderProtocol {
                     let recipesByType = try decoder.decode(RecipesByTypeModel.self, from: data)
                     complitionHandler(recipesByType)
                 } catch let error {
-                    print(error)
+                    print(error.localizedDescription)
                 }
             }
         }
         dataTask.resume()
     }
     
-    func getCurrentRecipesByID(forID ID: Int, completionHandler: @escaping ( RecipesModel ) -> Void) {
+    func getCurrentRecipesByID(forID ID: Int, completionHandler: @escaping ( Recipe ) -> Void) {
         let endpoint = Endpoint.getCurrentRecipe(key: spoonacularAPIKey, ID: ID)
         var urlRequest = URLRequest(url: endpoint.url)
         urlRequest.httpMethod = "GET"
@@ -76,10 +76,10 @@ class RecipesManager: RestAPIProviderProtocol {
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
-                    let randomRecipes = try decoder.decode(RecipesModel.self, from: data)
+                    let randomRecipes = try decoder.decode(Recipe.self, from: data)
                     completionHandler(randomRecipes)
                 } catch let error {
-                    print(error)
+                    print(error.localizedDescription)
                 }
             }
         }

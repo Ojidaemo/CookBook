@@ -16,6 +16,7 @@ class MainVC: UIViewController {
     var selectedCategory = "all"
     var typesRicepsArray: [Result] = []
     var currentRicepsArray: [Recipe] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .secondarySystemBackground
@@ -157,17 +158,19 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let vc = DetailedRecipeViewController()
-//        let selectedID = typesRicepsArray[indexPath.row].id
-//        resipesByTypeDelegate.getCurrentRecipesByID(forID: selectedID) { [weak self] recipe in
-//            if let recipeForArray = recipe.recipes {
-//                self?.currentRicepsArray.append(contentsOf: recipeForArray)
-//            }
-//        }
-//        if  let recipe = currentRicepsArray.first {
-//            vc.contentView.configure(recipe)
-//        }
+        let selectedID = typesRicepsArray[indexPath.row].id
+        resipesByTypeDelegate.getCurrentRecipesByID(forID: selectedID) { [weak self] recipesData in
+            guard let self = self else { return }
+            let recivedData = recipesData
+            self.currentRicepsArray.append(recivedData)
+            DispatchQueue.main.async {
+                vc.contentView.configure(self.currentRicepsArray)
+            }
+        }
         self.navigationController?.pushViewController(vc, animated: true)
+        self.currentRicepsArray.removeAll()
     }
 }
 

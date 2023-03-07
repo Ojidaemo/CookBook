@@ -142,19 +142,17 @@ class ContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    public func configure(_ recipe: Result) {
-//
-//        self.dishImageView.sd_setImage(with: URL(string: recipe.image))
-//        self.titleLabel.text = recipe.title
-//        self.ingredientsInfoLabel.text = recipe.
-//         layoutSubviews()
-//     }
     
-    public func configure(_ recipe: Recipe) {
-      
-        self.dishImageView.sd_setImage(with: URL(string: recipe.image))
-        self.titleLabel.text = recipe.title
-         layoutSubviews()
+    public func configure(_ recipe: [Recipe]) {
+        guard let image = recipe.last?.image, let title = recipe.last?.title, let cookingTime = recipe.last?.cookingMinutes else { return }
+        
+        DispatchQueue.main.async {
+            self.dishImageView.sd_setImage(with: URL(string: image))
+            self.titleLabel.text = title
+            self.timeLabel.text = "\(cookingTime)"
+        }
+        layoutSubviews()
+        layoutIfNeeded()
      }
     
     private func setupView() {
