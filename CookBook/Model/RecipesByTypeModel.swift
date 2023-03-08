@@ -12,7 +12,7 @@ struct RecipesByTypeModel: Decodable {
     let offset, number, totalResults: Int
 }
 
-struct Result: Decodable, Equatable {
+struct Result: Decodable, Equatable, Encodable {
     let id: Int
     let title: String
     let image: String
