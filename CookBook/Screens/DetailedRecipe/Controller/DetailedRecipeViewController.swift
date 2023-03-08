@@ -42,7 +42,7 @@ extension DetailedRecipeViewController {
             contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -1000)
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -2000)
         ])
     }
 }
