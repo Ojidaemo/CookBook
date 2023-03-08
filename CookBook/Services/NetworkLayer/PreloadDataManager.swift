@@ -12,6 +12,7 @@ class PreloadData {
     private let getRandomRecipesListDelegate: RestAPIProviderProtocol = RecipesManager()
     
     var randomRecipesArray: [RecipesModel] = []
+    static var favoriteRecips: [Result] = [] // Массив сохраненных любых рецептов
     
     func configure() {
         getRandomRecipesListDelegate.getRandomRecipes { [weak self] recipesData in

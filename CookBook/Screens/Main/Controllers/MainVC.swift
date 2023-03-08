@@ -29,6 +29,13 @@ class MainVC: UIViewController {
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.recipeView.recipesTableView.reloadData()
+        }
+        print("!!!!!!! Показываем мэйн таблицу в который раз !!!!!!!!!")
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         preloadManagerDelegate.configure()
         searchView.tableView.reloadData()
@@ -148,8 +155,14 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
         let recipe = typesRicepsArray[indexPath.row]
+        if PreloadData.favoriteRecips.contains(recipe) {
+            //cell.liked = true
+            cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            //cell.liked = false
+            cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+        }
         cell.configure(recipe)
-        
         return cell
     }
     

@@ -9,8 +9,11 @@ import UIKit
 import SDWebImage
 
 class RecipeCell: UITableViewCell {
+    
     static let identifier = "RecipeCell"
-    var isChecked = true
+    var liked: Bool = false
+    private var currentRecipe: Result?
+    
     private var recipeName: UILabel = {
         let label = UILabel()
         label.text = "Grilled Fish With Sun Dried Tomato Relish"
@@ -33,9 +36,14 @@ class RecipeCell: UITableViewCell {
         return image
     }()
     
-     lazy var favouriteButton: UIButton = {
+    lazy var favouriteButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+//        if liked {
+//            button.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+//        } else {
+//            button.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+//        }
+       // button.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .red
         button.addTarget(self, action: #selector(favouriteButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -43,13 +51,16 @@ class RecipeCell: UITableViewCell {
     }()
     
     @objc func favouriteButtonPressed() {
-        
-        if isChecked {
-            favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
-            isChecked = false
-        } else {
+        if liked {
             favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
-            isChecked = true
+            liked = false
+            PreloadData.favoriteRecips.removeAll{ $0 == currentRecipe }
+            print("Массив избранное =", PreloadData.favoriteRecips)
+        } else {
+            favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            liked = true
+            PreloadData.favoriteRecips.append(currentRecipe!)
+            print("Массив избранное =", PreloadData.favoriteRecips)
         }
     }
     
@@ -69,18 +80,18 @@ class RecipeCell: UITableViewCell {
         contentView.addSubview(recipeName)
     }
     
-   public func configure(_ recipe: Result) {
-     
-       self.recipeImage.sd_setImage(with: URL(string: recipe.image))
-       self.recipeName.text = recipe.title
+    public func configure(_ recipe: Result) {
+        self.recipeImage.sd_setImage(with: URL(string: recipe.image))
+        self.recipeName.text = recipe.title
+        self.currentRecipe = recipe
         layoutSubviews()
     }
     public func configure(_ recipe: Recipe) {
-      
+        
         self.recipeImage.sd_setImage(with: URL(string: recipe.image))
         self.recipeName.text = recipe.title
-         layoutSubviews()
-     }
+        layoutSubviews()
+    }
     private func setupConstraints() {
         
         NSLayoutConstraint.activate([
