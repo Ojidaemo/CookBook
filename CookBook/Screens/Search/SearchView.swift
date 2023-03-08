@@ -1,12 +1,11 @@
-
 import UIKit
 
 final class SearchView: UIView {
 
-    private var searchBar: UISearchBar = {
+    var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = UISearchBar.Style.default
-        searchBar.placeholder = "Enter ingredients"
+        searchBar.placeholder = "Enter recipe name"
         searchBar.sizeToFit()
         searchBar.isTranslucent = false
         searchBar.backgroundImage = UIImage()

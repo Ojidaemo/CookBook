@@ -1,27 +1,18 @@
-
 import UIKit
 
 final class SearchVC: UIViewController {
     
     private let searchView = SearchView()
-    private let preloadManagerDelegate = PreloadData()
+    private let resipesByTypeDelegate: RestAPIProviderProtocol = RecipesManager()
+    var searchArray: [Result] = []
+    var currentRicepsArray: [Recipe] = []
     
-    override func viewDidAppear(_ animated: Bool) {  //тут после загрузки view получил данные и обновил таблицу
-        preloadManagerDelegate.configure()
-        searchView.tableView.reloadData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        preloadManagerDelegate.configure()
-        searchView.tableView.reloadData()
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        preloadManagerDelegate.configure() //не определился в каком месте лучше получать данные и обновлять таблицу, поэтому ещё и сюда пихнул. В идеале в одном месте где-то это делать.
-        searchView.tableView.reloadData()
         view.backgroundColor = .secondarySystemBackground
         searchView.tableView.delegate = self
         searchView.tableView.dataSource = self
+        searchView.searchBar.delegate = self
         setUpView()
     }
     
@@ -34,12 +25,26 @@ final class SearchVC: UIViewController {
             searchView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
+    
+    func search(for searchText: String) {
+        print("Searching for '\(searchText)'...")
+        
+        resipesByTypeDelegate.getRecipesByKey(forKey: searchText) { [weak self] recipesData in
+            guard let self = self else { return }
+            if let recivedData = recipesData.results {
+                self.searchArray.append(contentsOf: recivedData)
+                print("!!!!!!! searchArray =", self.searchArray)
+                DispatchQueue.main.async {
+                    self.searchView.tableView.reloadData()
+                }
+            }
+        }
+    }
 }
 
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return preloadManagerDelegate.randomRecipesArray.first?.recipes?.count ?? 1   //проверял получение кол-ва ячеек по кол-ву объектов из массива
-        
+        return searchArray.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -50,25 +55,36 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
-        if let recipe = preloadManagerDelegate.randomRecipesArray.first?.recipes?[indexPath.row] {
-            DispatchQueue.main.async {
-                cell.configure(recipe)
-            }
-        }
+        let recipe = searchArray[indexPath.row]
+        cell.configure(recipe)
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
-//        let bgColorView = UIView()
-//        bgColorView.backgroundColor = .white
-//        bgColorView.layer.cornerRadius = 15
-//        cell.selectedBackgroundView = bgColorView
         let vc = DetailedRecipeViewController()
+        let selectedID = searchArray[indexPath.row].id
+        resipesByTypeDelegate.getCurrentRecipesByID(forID: selectedID) { [weak self] recipesData in
+            guard let self = self else { return }
+            let recivedData = recipesData
+            self.currentRicepsArray.append(recivedData)
+            DispatchQueue.main.async {
+                vc.contentView.configure(self.currentRicepsArray)
+            }
+        }
         self.navigationController?.pushViewController(vc, animated: true)
+        self.currentRicepsArray.removeAll()
     }
+}
 
+extension SearchVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let searchText = searchBar.text {
+            search(for: searchText)
+        }
+        searchBar.resignFirstResponder()
+    }
 }
