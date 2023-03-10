@@ -28,10 +28,10 @@ class RecipeCell: UITableViewCell {
     
     private var recipeImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "tableImage")
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.cornerRadius = 15
+        image.layer.cornerRadius = 10
+        image.layer.masksToBounds = true
         image.clipsToBounds = true
         return image
     }()
@@ -105,9 +105,9 @@ class RecipeCell: UITableViewCell {
             recipeName.leadingAnchor.constraint(equalTo: recipeImage.trailingAnchor),
             recipeName.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -10),
             
-            favouriteButton.heightAnchor.constraint(equalToConstant: 30),
-            favouriteButton.widthAnchor.constraint(equalToConstant: 30),
-            favouriteButton.topAnchor.constraint(equalTo: recipeImage.topAnchor),
+            favouriteButton.heightAnchor.constraint(equalToConstant: 32),
+            favouriteButton.widthAnchor.constraint(equalToConstant: 32),
+            favouriteButton.topAnchor.constraint(equalTo: recipeImage.topAnchor, constant: 5),
             favouriteButton.leadingAnchor.constraint(equalTo: recipeImage.leadingAnchor,constant: 5)
             
         ])
