@@ -27,7 +27,9 @@ extension Endpoint {
                 return url
             }
             fatalError()
-        case .getRecipesByType(let key, let type):
+        case .getRecipesByType(let key, var type):
+            //removing spaces
+            type = type.replacingOccurrences(of: " ", with: "+")
             if let url = URL(string: spoonacularURL.appending("/complexSearch?type=\(type)&apiKey=\(key)")) {
                 return url
             }
