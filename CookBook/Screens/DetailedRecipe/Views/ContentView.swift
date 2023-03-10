@@ -65,7 +65,6 @@ class ContentView: UIView {
     
     let squirrelsLabel: UILabel = {
         let label = UILabel()
-        label.text = "Protein: "
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -83,7 +82,6 @@ class ContentView: UIView {
     
     let carbohydratesLabel: UILabel = {
         let label = UILabel()
-        label.text = "Carbs: "
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -101,7 +99,6 @@ class ContentView: UIView {
     
     let fatsLabel: UILabel = {
         let label = UILabel()
-        label.text = "Fat: "
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -167,7 +164,7 @@ class ContentView: UIView {
         var finalString = ""
         for ingredient in ingredients {
             if let textInfo = ingredient.original {
-                finalString += " • \(textInfo)\n"
+                finalString += "• \(textInfo)\n"
             }
             
             DispatchQueue.main.async {
@@ -177,6 +174,9 @@ class ContentView: UIView {
                 self.dishLabel.text = "\(dishType[0])"
                 self.cookingMethodTextLabel.text = "\(method.htmlToString)"
                 self.ingredientsInfoLabel.text = finalString
+                self.squirrelsLabel.text = "Protein: \(Int.random(in: 15...50))g"
+                self.carbohydratesLabel.text = "Carbs: \(Int.random(in: 25...90))g"
+                self.fatsLabel.text = "Fat: \(Int.random(in: 30...70))g"
             }
             layoutSubviews()
             layoutIfNeeded()
@@ -208,7 +208,7 @@ class ContentView: UIView {
                                                                  carbohydratesView,
                                                                  fatsView])
         macronutrientsStackView.axis = .horizontal
-        macronutrientsStackView.spacing = 37
+        macronutrientsStackView.spacing = 20
         macronutrientsStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(macronutrientsStackView)
         
@@ -243,7 +243,7 @@ extension ContentView {
             dishTypeStackView.leadingAnchor.constraint(equalTo: timeStackView.trailingAnchor, constant: 50),
             
             macronutrientsStackView.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: 20),
-            macronutrientsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
+            macronutrientsStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             squirrelsLabel.centerXAnchor.constraint(equalTo: squirrelsView.centerXAnchor),
             squirrelsLabel.centerYAnchor.constraint(equalTo: squirrelsView.centerYAnchor),
@@ -264,7 +264,7 @@ extension ContentView {
             
             cookingMethodTextLabel.topAnchor.constraint(equalTo: cookingMethodLabel.bottomAnchor, constant: 20),
             cookingMethodTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
-            cookingMethodTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+            cookingMethodTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40)
         ])
     }
 }
