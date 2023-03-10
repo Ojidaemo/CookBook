@@ -157,10 +157,10 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         let recipe = typesRicepsArray[indexPath.row]
         if PreloadData.favoriteRecips.contains(recipe) {
             //cell.liked = true
-            cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            cell.favouriteButton.setBackgroundImage(UIImage(named: "SaveActive"), for: .normal)
         } else {
             //cell.liked = false
-            cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            cell.favouriteButton.setBackgroundImage(UIImage(named: "SaveInactive"), for: .normal)
         }
         cell.configure(recipe)
         return cell

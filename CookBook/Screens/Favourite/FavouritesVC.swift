@@ -10,7 +10,9 @@ import UIKit
 class FavouritesVC: UIViewController {
     
     private let favoriteView = FavouritesView()
-    
+    private let resipesByTypeDelegate: RestAPIProviderProtocol = RecipesManager()
+    var currentRicepsArray: [Recipe] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print(view.frame.width)
@@ -59,10 +61,10 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
         let recipe = PreloadData.favoriteRecips[indexPath.row]
         if PreloadData.favoriteRecips.contains(recipe) {
             //cell.liked = true
-            cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            cell.favouriteButton.setBackgroundImage(UIImage(named: "SaveActive"), for: .normal)
         } else {
             //cell.liked = false
-            cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            cell.favouriteButton.setBackgroundImage(UIImage(named: "SaveInactive"), for: .normal)
         }
         cell.configure(recipe)
         
@@ -79,7 +81,17 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
         bgColorView.backgroundColor = .white
         bgColorView.layer.cornerRadius = 15
         cell.selectedBackgroundView = bgColorView
+        
         let vc = DetailedRecipeViewController()
+        let selectedID = PreloadData.favoriteRecips[indexPath.row].id
+        resipesByTypeDelegate.getCurrentRecipesByID(forID: selectedID) { [weak self] recipesData in
+            guard let self = self else { return }
+            let recivedData = recipesData
+            self.currentRicepsArray.append(recivedData)
+            DispatchQueue.main.async {
+                vc.contentView.configure(self.currentRicepsArray)
+            }
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
