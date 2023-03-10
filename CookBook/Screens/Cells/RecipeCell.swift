@@ -52,12 +52,12 @@ class RecipeCell: UITableViewCell {
     
     @objc func favouriteButtonPressed() {
         if liked {
-            favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            favouriteButton.setBackgroundImage(UIImage(named: "SaveInactive"), for: .normal)
             liked = false
             PreloadData.favoriteRecips.removeAll{ $0 == currentRecipe }
             print("Массив избранное =", PreloadData.favoriteRecips)
         } else {
-            favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favouriteButton.setBackgroundImage(UIImage(named: "SaveActive"), for: .normal)
             liked = true
             PreloadData.favoriteRecips.append(currentRecipe!)
             print("Массив избранное =", PreloadData.favoriteRecips)

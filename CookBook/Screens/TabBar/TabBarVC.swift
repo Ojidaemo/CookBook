@@ -21,20 +21,20 @@ class TabBarVC: UITabBarController {
             generateVC(
                 viewController: SearchVC(),
                 title: "Search",
-                image: UIImage(systemName: "magnifyingglass.circle"),
-                selectedImage: UIImage(systemName: "magnifyingglass.circle.fill")
+                image: UIImage(named: "Search"),
+                selectedImage: UIImage(named: "SearchSelected")
             ),
             generateVC(
                 viewController: MainVC(),
                 title: "Home",
-                image: UIImage(systemName: "house"),
-                selectedImage: UIImage(systemName: "house.fill")
+                image: UIImage(named: "Category"),
+                selectedImage: UIImage(named: "CategorySelected")
             ),
             generateVC(
                 viewController: FavouritesVC(),
                 title: "Favourites",
-                image: UIImage(systemName: "heart"),
-                selectedImage: UIImage(systemName: "heart.fill")
+                image: UIImage(named: "Favourite"),
+                selectedImage: UIImage(named: "FavouriteSelected")
             )
         ]
     }
@@ -42,8 +42,8 @@ class TabBarVC: UITabBarController {
     // Метод создания первоначального контроллера
     private func generateVC(viewController: UIViewController, title: String, image: UIImage?, selectedImage: UIImage?) -> UIViewController {
         viewController.tabBarItem.title = title
-        viewController.tabBarItem.image = image
-        viewController.tabBarItem.selectedImage = selectedImage
+        viewController.tabBarItem.image = image?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        viewController.tabBarItem.selectedImage = selectedImage?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         return viewController
     }
     
