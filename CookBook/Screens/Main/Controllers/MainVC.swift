@@ -9,10 +9,14 @@ import UIKit
 
 class MainVC: UIViewController {
     
+    private let preloadManagerDelegate = PreloadData()
+    private let searchView = SearchView()
     private let recipeView = RecipeView()
-    private let resipesByTypeDelegate: RestAPIProviderProtocol = RecipesManager() // создал делегат для вызвова запроса
+    private let resipesByTypeDelegate: RestAPIProviderProtocol = RecipesManager()
     var selectedCategory = "all"
     var typesRicepsArray: [Result] = []
+    var currentRicepsArray: [Recipe] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .secondarySystemBackground
@@ -21,8 +25,21 @@ class MainVC: UIViewController {
         recipeView.recipesTableView.dataSource = self
         recipeView.recipesTableView.delegate = self
         setupView()
+        getRecipesByTypeFirstTime(forKey: selectedCategory)
+
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.recipeView.recipesTableView.reloadData()
+        }
+        print("!!!!!!! Показываем мэйн таблицу в который раз !!!!!!!!!")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        preloadManagerDelegate.configure()
+        searchView.tableView.reloadData()
+    }
     
     private func setupView() {
         view.addSubview(recipeView)
@@ -44,28 +61,36 @@ class MainVC: UIViewController {
         cell.layer.masksToBounds = false
         cell.layer.cornerRadius = 15
     }
+    
+    private func getRecipesByTypeFirstTime(forKey key: String) {
+        resipesByTypeDelegate.getRecipesByType(forType: key) { [weak self] recipe in
+            if let recivedData = recipe.results {
+                self?.typesRicepsArray.append(contentsOf: recivedData)
+                DispatchQueue.main.async {
+                    self?.recipeView.recipesTableView.reloadData()
+                }
+            }
+        }
+    }
 }
 
 
 extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        typesRicepsArray.removeAll() //очищаем массив от всех предыдущих значений
+        typesRicepsArray.removeAll()
         recipeView.isSelected = false
         if recipeView.lastIndexActive != indexPath {
             
             let cell = collectionView.cellForItem(at: indexPath) as! CategoryCell
             setupUICell(cell: cell, color: .lightGray)
             selectedCategory = recipeView.categories[indexPath.row]
-            resipesByTypeDelegate.getRecipesByType(forType: selectedCategory) { [weak self] recipesData in //передал ключ в запрос
+            resipesByTypeDelegate.getRecipesByType(forType: selectedCategory) { [weak self] recipesData in
                 guard let self = self else { return }
-                //                if self.selectedCategory == "all" {
-                //                    print("ALLLLLLLLLL") //это чтобы не забыть про all
-                //                }
                 if let recivedData = recipesData.results {
-                    self.typesRicepsArray.append(contentsOf: recivedData) //доб значения в массив
+                    self.typesRicepsArray.append(contentsOf: recivedData)
                     DispatchQueue.main.async {
-                        self.recipeView.recipesTableView.reloadData() //обновили таблицу
+                        self.recipeView.recipesTableView.reloadData()
                     }
                 }
             }
@@ -129,7 +154,15 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
-        
+        let recipe = typesRicepsArray[indexPath.row]
+        if PreloadData.favoriteRecips.contains(recipe) {
+            //cell.liked = true
+            cell.favouriteButton.setBackgroundImage(UIImage(named: "SaveActive"), for: .normal)
+        } else {
+            //cell.liked = false
+            cell.favouriteButton.setBackgroundImage(UIImage(named: "SaveInactive"), for: .normal)
+        }
+        cell.configure(recipe)
         return cell
     }
     
@@ -138,8 +171,19 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let vc = DetailedRecipeViewController()
+        let selectedID = typesRicepsArray[indexPath.row].id
+        resipesByTypeDelegate.getCurrentRecipesByID(forID: selectedID) { [weak self] recipesData in
+            guard let self = self else { return }
+            let recivedData = recipesData
+            self.currentRicepsArray.append(recivedData)
+            DispatchQueue.main.async {
+                vc.contentView.configure(self.currentRicepsArray)
+            }
+        }
         self.navigationController?.pushViewController(vc, animated: true)
+        self.currentRicepsArray.removeAll()
     }
 }
 
